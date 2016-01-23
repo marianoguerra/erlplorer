@@ -1,0 +1,102 @@
+@behaviour(gen_server)
+
+fn start_link @public
+  @doc("Start a erlplor_astats's instance with start_link")
+  case Opts:
+    gen_server.start_link(#i module, Opts, [])
+end
+
+fn stop @public
+  @doc("Stop a erlplor_astats's instance from the reference returned by start_link")
+  case Ref:
+    gen_server.call(Ref, stop)
+end
+
+fn analyze @public
+  @doc("analyze ast node")
+  case Ref, Ast:
+    gen_server.call(Ref, (analyze, Ast))
+end
+
+fn get_stats @public
+  case Ref:
+    gen_server.call(Ref, (get, stats))
+end
+
+#_ "gen_server callbacks"
+
+fn init @public
+  @doc("gen_server callback to initialize erlplor_astats's state")
+
+  case _Opts:
+    (ok, {modules: {}, external_funs: {}})
+end
+
+
+fn handle_call @public
+  @doc("gen_server callback to handle erlplor_astats's calls")
+
+  case stop, From, State:
+    (stop, normal, stopped, State)
+
+  case (analyze, Ast), _From, State:
+    NewState = handle(Ast, State)
+    (reply, Ast, NewState)
+
+  case (get, stats), _From, State:
+    (reply, (ok, State), State)
+end
+
+
+fn handle_cast @public
+  @doc("gen_server callback to handle erlplor_astats's casts")
+
+  case Msg, State:
+    lager.warning("Unknown cast ~p, ~p.", [Msg, State])
+    (noreply, State)
+end
+
+
+fn handle_info @public
+  @doc("gen_server callback to handle erlplor_astats's info calls")
+  case Info, State:
+    lager.warning("info ~p, ~p.", [Info, State])
+    (noreply, State)
+end
+
+
+fn terminate @public
+  @doc("gen_server callback to handle erlplor_astats's terminate call")
+
+  case Reason, State:
+    ok
+end
+
+
+fn code_change @public
+  @doc("gen_server callback to handle erlplor_astats's code_change call")
+  case OldVsn, State, Extra:
+    (ok, State)
+end
+
+#_ "private functions"
+
+fn handle
+  case (call, Line, (remote, _La, (atom, _, Mod), (atom, _, Fun)), Args), State:
+    Arity = length(Args)
+    MFA = list_to_binary(io_lib.format("~p:~p/~p", [Mod, Fun, Arity]))
+
+    State1 = inc(State, external_funs, MFA)
+    State2 = inc(State1, modules, Mod)
+
+    State2
+  case _Ast, State: State
+end
+
+fn inc case Map, Key, SubKey:
+  M1 = maps.get(Key, Map, {})
+  CurrentCount = maps.get(SubKey, M1, 0)
+  M2 = maps.put(SubKey, CurrentCount + 1, M1)
+  maps.put(Key, M2, Map)
+end
+

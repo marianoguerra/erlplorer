@@ -1,0 +1,64 @@
+
+fn main @public
+  case ["info" :: Paths]:
+    Result = lists.map(Paths) <<- case Path:
+      handle_file(Path)
+    end
+
+    print_and_exit(Result)
+  case Args:
+    io.format("Unknown Arguments: ~p~n", [Args])
+    usage()
+    erlang.halt(0)
+end
+
+fn usage case:
+  io.format("USAGE: erlplorer info <file>+~n")
+end
+
+fn parse_file case Path:
+  match lists.reverse(Path):
+    case "lre." ++ _:
+      ParseResult = epp.parse_file(Path, [], [])
+    case "nf." ++ _:
+      efene.to_mod(Path) 
+    else:
+      (error, (invalid_file, Path))
+  end
+end
+
+fn analyze_path @public case Path:
+  
+  match parse_file(Path):
+    case ok, Ast:
+      (ok, Pid) = erlplor_astats.start_link([])
+
+      erl_ast_walk.walk(Ast) <- case AstNode:
+        erlplor_astats.analyze(Pid, AstNode)
+      end
+
+      (ok, Stats) = erlplor_astats.get_stats(Pid)
+      erlplor_astats.stop(Pid)
+
+      (ok, Stats)
+    case error, Reason:
+      (error, {reason: (io_lib.format("~p", [Reason]) -> list_to_binary())})
+  end
+end
+
+fn print_and_exit case Data:
+  Out = jsx.encode(Data)
+  io.format("~s~n", [Out])
+  erlang.halt(0)
+end
+
+fn handle_file case Path:
+  ModuleName = filename.basename(Path) -> list_to_binary()
+  match analyze_path(Path):
+    case ok, Result:
+       {status: ok, module: ModuleName, data: Result}
+    case error, Reason:
+       {status: error, reason: Reason, module: ModuleName}
+  end
+end
+
