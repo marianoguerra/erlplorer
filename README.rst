@@ -14,8 +14,7 @@ The resulting escript will be at::
 
     _build/default/bin/erlplorer
 
-There's a symlink to it in this repo, but you can copy the escript somewhere in
-your $PATH
+You can copy the escript somewhere in your $PATH
 
 Run
 ---
