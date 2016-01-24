@@ -44,7 +44,7 @@ fn analyze_path @public case Path:
           (clause, _, _, _, Forms) = lists.last(Clauses)
           LastForm = lists.last(Forms)
           LastLine = element(2, LastForm)
-          Info = {line: Line, name: Name, length: (LastLine - Line + 1),
+          Info = {line: Line, name: Name, length: LastLine - Line + 1,
                   arity: Arity, clauses: length(Clauses)}
           FunA = io_lib.format("~s/~p", [Name, Arity]) -> list_to_binary()
           Funs1 = maps.put(FunA, Info, Funs)

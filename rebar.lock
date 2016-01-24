@@ -1,6 +1,6 @@
 [{<<"efene">>,
   {git,"https://github.com/efene/efene.git",
-       {ref,"533a80a72edec2078e7547ba7333ee67dc4f6df1"}},
+       {ref,"52029d04b2fb8fa230f23e3f791f0c0aba3338f8"}},
   0},
  {<<"jsx">>,
   {git,"https://github.com/talentdeficit/jsx.git",
