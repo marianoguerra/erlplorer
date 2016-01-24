@@ -21,29 +21,43 @@ fn parse_file case Path:
     case "lre." ++ _:
       ParseResult = epp.parse_file(Path, [], [])
     case "nf." ++ _:
-      efene.to_mod(Path) 
+      efene.to_mod(Path)
     else:
       (error, (invalid_file, Path))
   end
 end
 
 fn analyze_path @public case Path:
-  
   match parse_file(Path):
     case ok, Ast:
-      (ok, Pid) = erlplor_astats.start_link([])
+      Walker = fn
+        case State, Node=(call, Line, (remote, _La, (atom, _, Mod),
+                                       (atom, _, Fun)), Args):
+          Arity = length(Args)
+          MFA = list_to_binary(io_lib.format("~p:~p/~p", [Mod, Fun, Arity]))
 
-      erl_ast_walk.walk(Ast) <- case AstNode:
-        erlplor_astats.analyze(Pid, AstNode)
+          State1 = inc(State, external_funs, MFA)
+          State2 = inc(State1, modules, Mod)
+
+          (Node, State2)
+        case State, Node:
+          (Node, State)
       end
 
-      (ok, Stats) = erlplor_astats.get_stats(Pid)
-      erlplor_astats.stop(Pid)
+      State0 = {modules: {}, external_funs: {}}
+      (_, Stats) = erl_ast_walk.walk(Ast, Walker, State0)
 
       (ok, Stats)
     case error, Reason:
       (error, {reason: (io_lib.format("~p", [Reason]) -> list_to_binary())})
   end
+end
+
+fn inc case Map, Key, SubKey:
+  M1 = maps.get(Key, Map, {})
+  CurrentCount = maps.get(SubKey, M1, 0)
+  M2 = maps.put(SubKey, CurrentCount + 1, M1)
+  maps.put(Key, M2, Map)
 end
 
 fn print_and_exit case Data:
