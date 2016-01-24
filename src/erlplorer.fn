@@ -44,8 +44,13 @@ fn analyze_path @public case Path:
           (clause, _, _, _, Forms) = lists.last(Clauses)
           LastForm = lists.last(Forms)
           LastLine = element(2, LastForm)
-          Info = {line: Line, name: Name, length: LastLine - Line + 1,
-                  arity: Arity, clauses: length(Clauses)}
+          ClausesInfo = analyze_clauses(Node)
+          Info = maps.merge({line: Line,
+                             name: Name,
+                             length: LastLine - Line + 1,
+                             arity: Arity,
+                             clauses: length(Clauses)},
+                            ClausesInfo)
           FunA = io_lib.format("~s/~p", [Name, Arity]) -> list_to_binary()
           Funs1 = maps.put(FunA, Info, Funs)
           State1 = maps.put(functions, Funs1, State)
@@ -61,6 +66,49 @@ fn analyze_path @public case Path:
     case error, Reason:
       (error, {reason: (io_lib.format("~p", [Reason]) -> list_to_binary())})
   end
+end
+
+fn add_item_line case Key, Map, Name, Line:
+  Items = maps.get(Key, Map, {})
+  Lines = maps.get(Name, Items, [])
+  NewLines = [Line :: Lines]
+  NewItems = maps.put(Name, NewLines, Items)
+  maps.put(Key, NewItems, Map)
+end
+
+fn analyze_clauses case Ast:
+  Walker = fn
+    case State, Node=(var, Line, Name):
+      State1 = add_item_line(vars, State, Name, Line)
+      (Node, State1)
+    case State,
+         Node=(call, Line, (remote, _La, (atom, _, Mod), (atom, _, Fun)), Args):
+      Arity = length(Args)
+      Name = list_to_binary(io_lib.format("~p:~p/~p", [Mod, Fun, Arity]))
+      State1 = add_item_line(remote_calls, State, Name, Line)
+      (Node, State1)
+    case State, Node=(call, Line, (atom, _La, Fun), Args):
+      Arity = length(Args)
+      Name = list_to_binary(io_lib.format("~p/~p", [Fun, Arity]))
+      State1 = add_item_line(calls, State, Name, Line)
+      (Node, State1)
+    case State, Node=(record_index, Line, Name, _Field):
+      State1 = add_item_line(records, State, Name, Line)
+      (Node, State1)
+    case State, Node=(record_field, Line, _Rec, Name, _Field):
+      State1 = add_item_line(records, State, Name, Line)
+      (Node, State1)
+    case State, Node=(record, Line, Name, _Inits):
+      State1 = add_item_line(records, State, Name, Line)
+      (Node, State1)
+    case State, Node:
+      (Node, State)
+  end
+
+  State0 = {vars: {}, remote_calls: {}, calls: {}, records: {}}
+  (_, Stats) = erl_ast_walk.walk([Ast], Walker, State0)
+
+  Stats
 end
 
 fn inc case Map, Key, SubKey:
