@@ -40,11 +40,21 @@ fn analyze_path @public case Path:
           State2 = inc(State1, modules, Mod)
 
           (Node, State2)
+        case State={functions=Funs}, Node=(function, Line, Name, Arity, Clauses):
+          (clause, _, _, _, Forms) = lists.last(Clauses)
+          LastForm = lists.last(Forms)
+          LastLine = element(2, LastForm)
+          Info = {line: Line, name: Name, length: (LastLine - Line + 1),
+                  arity: Arity, clauses: length(Clauses)}
+          FunA = io_lib.format("~s/~p", [Name, Arity]) -> list_to_binary()
+          Funs1 = maps.put(FunA, Info, Funs)
+          State1 = maps.put(functions, Funs1, State)
+          (Node, State1)
         case State, Node:
           (Node, State)
       end
 
-      State0 = {modules: {}, external_funs: {}}
+      State0 = {modules: {}, external_funs: {}, functions: {}}
       (_, Stats) = erl_ast_walk.walk(Ast, Walker, State0)
 
       (ok, Stats)
