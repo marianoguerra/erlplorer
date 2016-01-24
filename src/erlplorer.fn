@@ -77,7 +77,7 @@ fn print_and_exit case Data:
 end
 
 fn handle_file case Path:
-  ModuleName = filename.basename(Path) -> list_to_binary()
+  ModuleName = remove_extension(filename.basename(Path)) -> list_to_binary()
   match analyze_path(Path):
     case ok, Result:
        {status: ok, module: ModuleName, data: Result}
@@ -86,3 +86,13 @@ fn handle_file case Path:
   end
 end
 
+fn remove_extension case Name:
+  match lists.reverse(Name):
+    case "lre." ++ Name1:
+      lists.reverse(Name1)
+    case "nf." ++ Name1:
+      lists.reverse(Name1)
+    else:
+      Name
+  end
+end
