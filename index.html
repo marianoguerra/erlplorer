@@ -5,10 +5,10 @@
   <style type="text/css" media="screen">
    html, body, svg { width: 100%; height: 100%;}
    #graph{width: 100%; height: 100%}
-   body{font-family: helvetica; color #333; margin-left: 10%; width: 80%;
+   body{font-family: helvetica; font-size: 14pt; color #333; margin-left: 10%; width: 80%;
     background-color: #fefefe;}
    table{width: 80%; margin-left: 10%, border: 1px solid #999;}
-   .chart{border: 1px solid #999;}
+   .chart{border: 1px solid #999; margin-top: 1em;}
    tr:hover{background-color: #eee;}
   </style>
   <script src="resources/js/vivagraph.js"></script>
@@ -17,8 +17,33 @@
  </head>
  <body>
   <h1>Erlplorer</h1>
+  <p>Erlplorer is a script (<a href="http://erlang.org/doc/man/escript.html">escript</a>) written in <a href="http://efene.org">efene</a> that analyzes your erlang
+  and/or efene modules and outputs JSON with information about them, you can
+  use that information to feed it to any tool you create</p>
+
+  <p>Information the tool exports:
+   <ul>
+    <li>Module name</li>
+    <li>Modules referenced by current module with number of references</li>
+    <li>External functions called by current module with number of calls</li>
+    <li>Declared functions, location, number of lines, number of clauses</li>
+   </ul>
+  <p>
+
+  <p>The tool can easily be extended to record more statistics.</p>
+
+  <p>You can upload the result of running erlplorer on your files here and it
+  will display some information about it, the data won't be uploaded anywhere,
+  it's all processed in browser.</p>
+
+  <p>Check the project's readme to build and run <a href="https://github.com/marianoguerra/erlplorer">github.com/marianoguerra/erlplorer</a></p>
+
+  <label for="data-file">Upload output JSON here</label>
   <input type="file" id="data-file">
-  <div class="chart" id="graph"></div>
+   
+  <p>See Information below, (there's information after the chart), you can scroll to zoom on the chart and move nodes around to make them look better</p>
+
+  <div class="chart" style="display:none" id="graph"></div>
  </body>
 </html>
 

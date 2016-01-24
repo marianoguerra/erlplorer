@@ -63,12 +63,15 @@
             totalFunLength = {}, seenModules = [], noCallModules;
 
 
+        graph.addNode("ROOT", {name: "ROOT"});
+
         for (i = 0, len = data.length; i < len; i += 1) {
             item = data[i];
             if (item.status === "ok") {
                 moduleName = item.module;
                 seenModules.push(moduleName);
                 graph.addNode(moduleName, {name: moduleName, info: item});
+                graph.addLink(moduleName, "ROOT", {count: 1});
 
                 refModules = item.data.modules;
                 for (refModuleName in refModules) {
@@ -146,6 +149,7 @@
             container: container
         });
 
+        container.style.display = "block";
         renderer.run();
 
         function isntStdlibModule(row) {
