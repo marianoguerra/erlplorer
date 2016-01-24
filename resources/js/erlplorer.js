@@ -1,4 +1,4 @@
-/*globals Viva, window, console, document, MODULES*/
+/*globals Viva, window, console, document, MODULES, EXAMPLE_OUTPUT, JsonHuman*/
 (function () {
     'use strict';
     var MODULES_OBJ = {};
@@ -62,6 +62,7 @@
             count, totalModuleCalls = {}, totalFunCalls = {},
             totalFunLength = {}, seenModules = [], noCallModules;
 
+        document.getElementById('demo-section').style.display = "none";
 
         graph.addNode("ROOT", {name: "ROOT"});
 
@@ -180,6 +181,12 @@
 
         table("Total Module Calls (with Stdlib)", objToSortedList(totalModuleCalls), document.body);
         table("Total Fun Calls (with Stdlib)", objToSortedList(totalFunCalls), document.body);
+
+        var node = JsonHuman.format(EXAMPLE_OUTPUT);
+        var title = document.createElement('h2');
+        title.innerHTML = "Raw Data";
+        document.body.appendChild(title);
+        document.body.appendChild(node);
     }
 
 
@@ -202,6 +209,8 @@
         var dataFile = document.getElementById('data-file');
 
         dataFile.addEventListener('change', onFileChange);
+        var node = JsonHuman.format(EXAMPLE_OUTPUT);
+        document.getElementById('example-output').appendChild(node);
     }
 
 

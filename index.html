@@ -11,8 +11,10 @@
    .chart{border: 1px solid #999; margin-top: 1em;}
    tr:hover{background-color: #eee;}
   </style>
+  <link rel="stylesheet" media="all" href="resources/css/json.human.css" />
   <script src="resources/js/vivagraph.js"></script>
   <script src="resources/js/data.js"></script>
+  <script src="resources/js/json.human.js"></script>
   <script src="resources/js/erlplorer.js"></script>
  </head>
  <body>
@@ -41,15 +43,22 @@
 
   <p>Check the project's readme to build and run <a href="https://github.com/marianoguerra/erlplorer">github.com/marianoguerra/erlplorer</a></p>
 
+  <h2>Try It!</h2>
+
   <label for="data-file">Upload output JSON here</label>
   <input type="file" id="data-file">
 
   <p>See Information below, (there's information after the chart), you can scroll to zoom on the chart and move nodes around to make them look better</p>
 
-  <p>Check a short demo:</p>
+  <div id="demo-section">
+   <p>Check a short demo:</p>
 
-  <center><iframe width="853" height="480" src="https://www.youtube.com/embed/ck52Zl6vMUg?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></center>
+   <center><iframe width="853" height="480" src="https://www.youtube.com/embed/ck52Zl6vMUg?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></center>
 
+   <p>Formatted Example Output of cowboy.erl and cowboy_req.erl</p>
+
+   <div id="example-output"></div>
+  </div>
 
   <div class="chart" style="display:none" id="graph"></div>
  </body>
