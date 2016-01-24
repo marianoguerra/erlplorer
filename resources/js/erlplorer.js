@@ -60,6 +60,7 @@
             i, len, item, moduleName, refModuleName, refModules,
             funCalls, funName, funs,
             count, totalModuleCalls = {}, totalFunCalls = {},
+            functionClauses = {}, funData, fullName,
             totalFunLength = {}, seenModules = [], noCallModules;
 
         document.getElementById('demo-section').style.display = "none";
@@ -90,8 +91,11 @@
 
                 funs = item.data.functions;
                 for (funName in funs) {
-                    count = funs[funName].length;
-                    incr(totalFunLength, moduleName + ":" + funName, count);
+                    funData = funs[funName];
+                    count = funData.length;
+                    fullName = moduleName + ":" + funName;
+                    incr(totalFunLength, fullName, count);
+                    functionClauses[fullName] = funData.inner_clauses;
                 }
 
                 funCalls = item.data.external_funs;
@@ -178,6 +182,7 @@
         table("Total Module Calls", objToSortedList(totalModuleCalls).filter(isntStdlibModule), document.body);
         table("Total Fun Calls", objToSortedList(totalFunCalls).filter(isntStdlibCall), document.body);
         table("Function Lengths", objToSortedList(totalFunLength), document.body);
+        table("Function Branches", objToSortedList(functionClauses), document.body);
 
         table("Total Module Calls (with Stdlib)", objToSortedList(totalModuleCalls), document.body);
         table("Total Fun Calls (with Stdlib)", objToSortedList(totalFunCalls), document.body);
