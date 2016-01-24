@@ -92,6 +92,7 @@ fn analyze_clauses case Ast:
       Name = list_to_binary(io_lib.format("~p/~p", [Fun, Arity]))
       State1 = add_item_line(calls, State, Name, Line)
       (Node, State1)
+
     case State, Node=(record_index, Line, Name, _Field):
       State1 = add_item_line(records, State, Name, Line)
       (Node, State1)
@@ -101,14 +102,36 @@ fn analyze_clauses case Ast:
     case State, Node=(record, Line, Name, _Inits):
       State1 = add_item_line(records, State, Name, Line)
       (Node, State1)
+
+    case State, Node=(`if`, _Line, Clauses):
+      (Node, inc_key(State, inner_clauses, length(Clauses)))
+    case State, Node=(`case`, _Line, _Expr, Clauses):
+      (Node, inc_key(State, inner_clauses, length(Clauses)))
+    case State, Node=(`receive`, _Line, Clauses):
+      (Node, inc_key(State, inner_clauses, length(Clauses)))
+    case State, Node=(`receive`, _Line, _Cs, _To, Clauses):
+      (Node, inc_key(State, inner_clauses, length(Clauses)))
+    case State, Node=(`fun`, _Line, (clauses, Clauses)):
+      (Node, inc_key(State, inner_clauses, length(Clauses)))
+    case State, Node=(named_fun, _Line, _Name, Clauses):
+      (Node, inc_key(State, inner_clauses, length(Clauses)))
+    case State, Node=(`try`, _Line, _Es, Scs, Ccs, _As):
+      (Node, inc_key(State, inner_clauses, length(Scs) + length(Ccs)))
+
     case State, Node:
       (Node, State)
   end
 
-  State0 = {vars: {}, remote_calls: {}, calls: {}, records: {}}
+  State0 = {vars: {}, remote_calls: {}, calls: {}, records: {},
+            inner_clauses: 0}
   (_, Stats) = erl_ast_walk.walk([Ast], Walker, State0)
 
   Stats
+end
+
+fn inc_key case Map, Key, Value:
+  CurrentCount = maps.get(Key, Map, 0)
+  maps.put(Key, CurrentCount + Value, Map)
 end
 
 fn inc case Map, Key, SubKey:
