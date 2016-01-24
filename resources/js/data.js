@@ -1920,6 +1920,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 3,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 6,
                     "line": 88,
                     "name": "set_env",
@@ -1982,6 +1983,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 3,
                     "line": 47,
                     "name": "start_http",
@@ -2020,6 +2022,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 3,
                     "line": 54,
                     "name": "start_https",
@@ -2058,6 +2061,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 8,
                     "line": 61,
                     "name": "start_spdy",
@@ -2100,6 +2104,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 9,
                     "line": 72,
                     "name": "start_tls",
@@ -2149,6 +2154,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 84,
                     "name": "stop_listener",
@@ -2206,6 +2212,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 2,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 900,
                     "name": "append_buffer",
@@ -2234,6 +2241,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 2,
+                    "inner_clauses": 0,
                     "length": 4,
                     "line": 1111,
                     "name": "atom_to_connection",
@@ -2249,6 +2257,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 261,
                     "name": "binding",
@@ -2273,6 +2282,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 2,
                     "length": 2,
                     "line": 265,
                     "name": "binding",
@@ -2313,6 +2323,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 272,
                     "name": "bindings",
@@ -2337,6 +2348,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 379,
                     "name": "body",
@@ -2372,6 +2384,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 3,
+                    "inner_clauses": 18,
                     "length": 55,
                     "line": 383,
                     "name": "body",
@@ -2488,6 +2501,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 1,
                     "line": 441,
                     "name": "body_content_decode_identity",
@@ -2515,6 +2529,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 6,
                     "length": 3,
                     "line": 478,
                     "name": "body_decode",
@@ -2616,6 +2631,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 6,
                     "line": 499,
                     "name": "body_decode_end",
@@ -2668,6 +2684,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 2,
                     "length": 2,
                     "line": 370,
                     "name": "body_length",
@@ -2704,6 +2721,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 6,
                     "length": 9,
                     "line": 443,
                     "name": "body_loop",
@@ -2790,6 +2808,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 508,
                     "name": "body_qs",
@@ -2810,6 +2829,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 2,
                     "length": 2,
                     "line": 516,
                     "name": "body_qs",
@@ -2851,6 +2871,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 4,
                     "line": 462,
                     "name": "body_recv",
@@ -2903,6 +2924,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 4,
+                    "inner_clauses": 2,
                     "length": 11,
                     "line": 819,
                     "name": "chunk",
@@ -2960,6 +2982,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 809,
                     "name": "chunked_reply",
@@ -2984,6 +3007,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 3,
                     "line": 814,
                     "name": "chunked_reply",
@@ -3027,6 +3051,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 2,
+                    "inner_clauses": 9,
                     "length": 39,
                     "line": 978,
                     "name": "chunked_response",
@@ -3128,6 +3153,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 3,
+                    "inner_clauses": 0,
                     "length": 6,
                     "line": 1118,
                     "name": "connection_to_atom",
@@ -3155,6 +3181,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 4,
                     "line": 855,
                     "name": "continue",
@@ -3187,6 +3214,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 2,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 3,
                     "line": 665,
                     "name": "delete_resp_header",
@@ -3223,6 +3251,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 2,
                     "calls": {},
                     "clauses": 3,
+                    "inner_clauses": 0,
                     "length": 6,
                     "line": 871,
                     "name": "do_maybe_reply",
@@ -3268,6 +3297,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 5,
+                    "inner_clauses": 0,
                     "length": 16,
                     "line": 880,
                     "name": "ensure_response",
@@ -3320,6 +3350,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 4,
+                    "inner_clauses": 2,
                     "length": 14,
                     "line": 1224,
                     "name": "filter",
@@ -3395,6 +3426,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 2,
                     "length": 2,
                     "line": 1239,
                     "name": "filter_constraints",
@@ -3437,6 +3469,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 2,
                     "calls": {},
                     "clauses": 24,
+                    "inner_clauses": 0,
                     "length": 24,
                     "line": 909,
                     "name": "g",
@@ -3537,6 +3570,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 2,
+                    "inner_clauses": 0,
                     "length": 4,
                     "line": 904,
                     "name": "get",
@@ -3567,6 +3601,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 3,
                     "length": 2,
                     "line": 357,
                     "name": "has_body",
@@ -3609,6 +3644,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 4,
+                    "inner_clauses": 0,
                     "length": 8,
                     "line": 654,
                     "name": "has_resp_body",
@@ -3642,6 +3678,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 2,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 650,
                     "name": "has_resp_header",
@@ -3674,6 +3711,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 276,
                     "name": "header",
@@ -3694,6 +3732,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 3,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 2,
                     "length": 2,
                     "line": 280,
                     "name": "header",
@@ -3731,6 +3770,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 287,
                     "name": "headers",
@@ -3751,6 +3791,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 197,
                     "name": "host",
@@ -3771,6 +3812,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 201,
                     "name": "host_info",
@@ -3795,6 +3837,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 2,
+                    "inner_clauses": 5,
                     "length": 14,
                     "line": 230,
                     "name": "host_url",
@@ -3846,6 +3889,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 4,
                     "line": 598,
                     "name": "init_multipart",
@@ -3883,6 +3927,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 3,
                     "length": 7,
                     "line": 1188,
                     "name": "kvlist_to_map",
@@ -3938,6 +3983,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 2,
+                    "inner_clauses": 7,
                     "length": 4,
                     "line": 1196,
                     "name": "kvlist_to_map",
@@ -4014,6 +4060,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 2,
+                    "inner_clauses": 0,
                     "length": 6,
                     "line": 837,
                     "name": "last_chunk",
@@ -4055,6 +4102,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 967,
                     "name": "lock",
@@ -4081,6 +4129,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 336,
                     "name": "match_cookies",
@@ -4112,6 +4161,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 225,
                     "name": "match_qs",
@@ -4137,6 +4187,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 2,
                     "length": 2,
                     "line": 863,
                     "name": "maybe_reply",
@@ -4165,6 +4216,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 3,
+                    "inner_clauses": 2,
                     "length": 10,
                     "line": 1098,
                     "name": "merge_headers",
@@ -4216,6 +4268,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 340,
                     "name": "meta",
@@ -4236,6 +4289,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 3,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 2,
                     "length": 2,
                     "line": 344,
                     "name": "meta",
@@ -4273,6 +4327,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 185,
                     "name": "method",
@@ -4303,6 +4358,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 6,
                     "length": 8,
                     "line": 161,
                     "name": "new",
@@ -4396,6 +4452,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 332,
                     "name": "parse_cookies",
@@ -4421,6 +4478,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 4,
+                    "inner_clauses": 0,
                     "length": 8,
                     "line": 291,
                     "name": "parse_header",
@@ -4460,6 +4518,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 301,
                     "name": "parse_header",
@@ -4489,6 +4548,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 2,
                     "length": 2,
                     "line": 325,
                     "name": "parse_header",
@@ -4521,6 +4581,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 20,
+                    "inner_clauses": 0,
                     "length": 20,
                     "line": 304,
                     "name": "parse_header_fun",
@@ -4532,6 +4593,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 221,
                     "name": "parse_qs",
@@ -4560,6 +4622,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 529,
                     "name": "part",
@@ -4589,6 +4652,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 2,
+                    "inner_clauses": 0,
                     "length": 5,
                     "line": 538,
                     "name": "part",
@@ -4635,6 +4699,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 4,
                     "length": 2,
                     "line": 544,
                     "name": "part",
@@ -4711,6 +4776,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 562,
                     "name": "part_body",
@@ -4737,6 +4803,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 2,
+                    "inner_clauses": 0,
                     "length": 4,
                     "line": 568,
                     "name": "part_body",
@@ -4776,6 +4843,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 9,
                     "length": 6,
                     "line": 573,
                     "name": "part_body",
@@ -4872,6 +4940,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 209,
                     "name": "path",
@@ -4892,6 +4961,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 213,
                     "name": "path_info",
@@ -4912,6 +4982,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 193,
                     "name": "peer",
@@ -4932,6 +5003,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 205,
                     "name": "port",
@@ -4952,6 +5024,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 217,
                     "name": "qs",
@@ -4976,6 +5049,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 670,
                     "name": "reply",
@@ -5008,6 +5082,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 675,
                     "name": "reply",
@@ -5079,6 +5154,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 19,
                     "length": 77,
                     "line": 682,
                     "name": "reply",
@@ -5281,6 +5357,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 6,
                     "length": 4,
                     "line": 760,
                     "name": "reply_may_compress",
@@ -5393,6 +5470,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 2,
                     "length": 10,
                     "line": 797,
                     "name": "reply_no_compress",
@@ -5461,6 +5539,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 13,
                     "length": 44,
                     "line": 1022,
                     "name": "response",
@@ -5628,6 +5707,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 2,
+                    "inner_clauses": 2,
                     "length": 4,
                     "line": 1069,
                     "name": "response_connection",
@@ -5674,6 +5754,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 3,
                     "line": 1082,
                     "name": "response_merge_headers",
@@ -5736,6 +5817,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 24,
+                    "inner_clauses": 0,
                     "length": 24,
                     "line": 935,
                     "name": "set",
@@ -5894,6 +5976,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 4,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 962,
                     "name": "set_bindings",
@@ -5922,6 +6005,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 3,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 351,
                     "name": "set_meta",
@@ -5959,6 +6043,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 2,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 629,
                     "name": "set_resp_body",
@@ -5983,6 +6068,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 633,
                     "name": "set_resp_body_fun",
@@ -6012,6 +6098,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 2,
+                    "inner_clauses": 0,
                     "length": 6,
                     "line": 642,
                     "name": "set_resp_body_fun",
@@ -6047,6 +6134,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 3,
                     "line": 619,
                     "name": "set_resp_cookie",
@@ -6083,6 +6171,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 3,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 625,
                     "name": "set_resp_header",
@@ -6119,6 +6208,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 58,
+                    "inner_clauses": 0,
                     "length": 58,
                     "line": 1126,
                     "name": "status",
@@ -6140,6 +6230,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 2,
+                    "inner_clauses": 0,
                     "length": 6,
                     "line": 603,
                     "name": "stream_multipart",
@@ -6202,6 +6293,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 971,
                     "name": "to_list",
@@ -6226,6 +6318,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 7,
                     "line": 846,
                     "name": "upgrade_reply",
@@ -6276,6 +6369,7 @@ EXAMPLE_OUTPUT = [
                         ]
                     },
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 3,
                     "line": 247,
                     "name": "url",
@@ -6301,6 +6395,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 2,
                     "calls": {},
                     "clauses": 2,
+                    "inner_clauses": 2,
                     "length": 8,
                     "line": 251,
                     "name": "url",
@@ -6338,6 +6433,7 @@ EXAMPLE_OUTPUT = [
                     "arity": 1,
                     "calls": {},
                     "clauses": 1,
+                    "inner_clauses": 0,
                     "length": 2,
                     "line": 189,
                     "name": "version",
