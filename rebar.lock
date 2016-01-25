@@ -1,8 +1,8 @@
 [{<<"efene">>,
   {git,"https://github.com/efene/efene.git",
-       {ref,"52029d04b2fb8fa230f23e3f791f0c0aba3338f8"}},
+       {ref,"ff55b6f32acdfc2e177584d17e319538e79fa6b2"}},
   0},
  {<<"jsx">>,
   {git,"https://github.com/talentdeficit/jsx.git",
-       {ref,"327f0d2875676e17ed1cdff803df62ac85fd648c"}},
+       {ref,"3074d4865b3385a050badf7828ad31490d860df5"}},
   0}].

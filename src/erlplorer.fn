@@ -30,6 +30,9 @@ end
 fn fun_part_to_name
   case (atom, _, Name): atom_to_list(Name)
   case (var, _, _Name): "_"
+  case (call, _, _, _): "_"
+  case (record_field, _Line, _Var, Name, (atom, _, Field)):
+    io_lib.format("#~p.~p", [Name, Field])
 end
 
 fn fun_to_name case Mod, Fun, Args:
