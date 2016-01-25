@@ -27,19 +27,31 @@ fn parse_file case Path:
   end
 end
 
+fn fun_part_to_name
+  case (atom, _, Name): atom_to_list(Name)
+  case (var, _, _Name): "_"
+end
+
+fn fun_to_name case Mod, Fun, Args:
+  ModName = fun_part_to_name(Mod)
+  FunName = fun_part_to_name(Fun)
+  Arity = length(Args)
+  list_to_binary(io_lib.format("~s:~s/~p", [ModName, FunName, Arity]))
+end
+
 fn analyze_path @public case Path:
   match parse_file(Path):
     case ok, Ast:
       Walker = fn
-        case State, Node=(call, Line, (remote, _La, (atom, _, Mod),
-                                       (atom, _, Fun)), Args):
-          Arity = length(Args)
-          MFA = list_to_binary(io_lib.format("~p:~p/~p", [Mod, Fun, Arity]))
-
+        case State, Node=(call, Line, (remote, _La, Mod, Fun), Args):
+          MFA = fun_to_name(Mod, Fun, Args)
           State1 = inc(State, external_funs, MFA)
-          State2 = inc(State1, modules, Mod)
-
-          (Node, State2)
+          match Mod:
+            case (atom, _, ModName):
+              (Node, inc(State1, modules, ModName))
+            else:
+              (Node, State1)
+          end
         case State={functions=Funs}, Node=(function, Line, Name, Arity, Clauses):
           (clause, _, _, _, Forms) = lists.last(Clauses)
           LastForm = lists.last(Forms)
@@ -81,10 +93,8 @@ fn analyze_clauses case Ast:
     case State, Node=(var, Line, Name):
       State1 = add_item_line(vars, State, Name, Line)
       (Node, State1)
-    case State,
-         Node=(call, Line, (remote, _La, (atom, _, Mod), (atom, _, Fun)), Args):
-      Arity = length(Args)
-      Name = list_to_binary(io_lib.format("~p:~p/~p", [Mod, Fun, Arity]))
+    case State, Node=(call, Line, (remote, _La, Mod, Fun), Args):
+      Name = fun_to_name(Mod, Fun, Args)
       State1 = add_item_line(remote_calls, State, Name, Line)
       (Node, State1)
     case State, Node=(call, Line, (atom, _La, Fun), Args):
