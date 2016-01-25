@@ -30,7 +30,7 @@ this to build. The easiest way is::
 
 Otherwise follow `rebar3's getting started guide <http://www.rebar3.org/docs/getting-started>`_.
 
-::
+Then::
 
     make
 
@@ -39,6 +39,11 @@ The resulting escript will be at::
     _build/default/bin/erlplorer
 
 You can copy the escript somewhere in your $PATH
+
+Downloading
+-----------
+
+You can also download a pre compiled release from the `Releases Page <https://github.com/marianoguerra/erlplorer/releases/>`_, check the last one and download the erlplorer binary, you will still need Erlang installed to run it.
 
 Run
 ---
