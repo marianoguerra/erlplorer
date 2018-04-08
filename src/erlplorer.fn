@@ -92,17 +92,17 @@ fn query_ast_to_mod case Ast, ModName:
 
   (function, 4, walk, 2, 
            [(clause, 4, 
-             [(var, 4, `Erlplorer_State`), 
-               (`match`, 4, (var, 4, `Erlplorer_Node`), Ast)], 
+             [(var, 4, `erlplorer_State`), 
+               (`match`, 4, (var, 4, `erlplorer_Node`), Ast)], 
               [], 
               [(call, 5, 
                 (remote, 5, (atom, 5, erlplorer), (atom, 5, query_match)), 
-                  [(var, 5, `Erlplorer_State`), (var, 5, `Erlplorer_Node`)]), 
-               (tuple, 6, [(var, 6, `Erlplorer_Node`), (var, 6, `Erlplorer_State`)])]), 
+                  [(var, 5, `erlplorer_State`), (var, 5, `erlplorer_Node`)]), 
+               (tuple, 6, [(var, 6, `erlplorer_Node`), (var, 6, `erlplorer_State`)])]), 
             (clause, 7, 
-              [(var, 7, `Erlplorer_State`), (var, 7, `Erlplorer_Node`)], 
+              [(var, 7, `erlplorer_State`), (var, 7, `erlplorer_Node`)], 
               [], 
-              [(tuple, 8, [(var, 8, `Erlplorer_Node`), (var, 8, `Erlplorer_State`)])])]), 
+              [(tuple, 8, [(var, 8, `erlplorer_Node`), (var, 8, `erlplorer_State`)])])]), 
  (eof, 9)] 
 end
 
@@ -119,7 +119,7 @@ case State, Node=(var, _Line, Name):
   match atom_to_list(Name):
     case "_@" ++ _:
       #_ "if name starts with _@ then we leave it as a var to pattern match"
-      #  "create an 'identity' function to avoid abstract from abstracting it" 
+      #_ "create an 'identity' function to avoid abstract from abstracting it" 
       NewNode = fn case _A, _E: Node end
       (NewNode, State)
     else:
