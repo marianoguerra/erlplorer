@@ -6,6 +6,24 @@ fn main @public
     end
 
     print_and_exit(Result)
+  case ["search", Query :: Paths]:
+    match compile_ast_query(Query):
+      case ok, ModName, Mod, Warnings:
+        print_warnings(Warnings)
+
+        for Path in Paths:
+          search_path(Path, ModName, Mod)
+        end
+
+        erlang.halt(0)
+      case error, Errors, Warnings:
+        print_warnings(Warnings)
+        print_errors(Errors)
+        erlang.halt(0)
+      case Error:
+        io.format("Error: ~p~n", [Error])
+        erlang.halt(0)
+    end
   case Args:
     io.format("Unknown Arguments: ~p~n", [Args])
     usage()
@@ -14,6 +32,128 @@ end
 
 fn usage case:
   io.format("USAGE: erlplorer info <file>+~n")
+  io.format("       erlplorer search <erl-expr> <file>+~n")
+end
+
+fn print_warnings
+case []:
+    ok
+case Warnings:
+  io.format("~nWarnings: ~n~p~n", [Warnings])
+end
+
+fn print_errors case Errors:
+  io.format("~nErrors: ~n~p~n", [Errors])
+end
+
+fn compile_ast_query case Code:
+  ModCode = "dummy() -> " ++ Code ++ ".\n"
+  match erl_scan.string(ModCode):
+    case ok, Tokens, _EndLocation:
+      (ok, Ast) = erl_parse.parse_form(Tokens)
+      (ok, QueryAst) = extract_query_ast(Ast)
+      AbsQueryAst = abstract_query_ast(QueryAst)
+      Id = erlang.unique_integer([positive])
+      ModName = list_to_atom("erlplorer_query_mod_" ++ integer_to_list(Id))
+      QModAst = query_ast_to_mod(AbsQueryAst, ModName)
+      io.format("ast: ~p~n", [QModAst])
+      io.format("code:~n~s~n", [pp_mod_ast(QModAst)])
+      compile.forms(QModAst, [return, binary])
+    case error, ErrorInfo, _ErrorLocation:
+      (error, ErrorInfo, [])
+  end
+end
+
+fn pp_mod_ast case ModAst:
+  erl_prettypr.format(erl_syntax.form_list(ModAst))
+end
+
+fn query_match @public case {filename=Filename}, Ast:
+  Line = element(2, Ast)
+  io.format("~s:~p ~s~n", [Filename, Line, try_pp_ast(Ast)])
+end
+
+fn try_pp_ast case Ast:
+  try
+    erl_pp.expr(Ast)
+  catch case _, _:
+    try
+      erl_pp.form(Ast)
+    catch case _, _:
+      ""
+    end
+  end
+end
+
+fn query_ast_to_mod case Ast, ModName:
+ [(attribute, 1, file, (atom_to_list(ModName), 1)), 
+  (attribute, 1, module, ModName), 
+  (attribute, 2, export, [(walk, 2)]), 
+
+  (function, 4, walk, 2, 
+           [(clause, 4, 
+             [(var, 4, `Erlplorer_State`), 
+               (`match`, 4, (var, 4, `Erlplorer_Node`), Ast)], 
+              [], 
+              [(call, 5, 
+                (remote, 5, (atom, 5, erlplorer), (atom, 5, query_match)), 
+                  [(var, 5, `Erlplorer_State`), (var, 5, `Erlplorer_Node`)]), 
+               (tuple, 6, [(var, 6, `Erlplorer_Node`), (var, 6, `Erlplorer_State`)])]), 
+            (clause, 7, 
+              [(var, 7, `Erlplorer_State`), (var, 7, `Erlplorer_Node`)], 
+              [], 
+              [(tuple, 8, [(var, 8, `Erlplorer_Node`), (var, 8, `Erlplorer_State`)])])]), 
+ (eof, 9)] 
+end
+
+fn extract_query_ast
+case (function, _Line, dummy, _Arity=0,
+        [(clause, _CLine, _Args, _Guards, [Body])]):
+  (ok, Body)
+end
+
+fn fun_match_any_line_ast case _A, _E: (var, 99, `_`) end
+
+fn abstract_query_ast_lines
+case State, Node=(var, _Line, Name):
+  match atom_to_list(Name):
+    case "_@" ++ _:
+      #_ "if name starts with _@ then we leave it as a var to pattern match"
+      #  "create an 'identity' function to avoid abstract from abstracting it" 
+      NewNode = fn case _A, _E: Node end
+      (NewNode, State)
+    else:
+      #_ "replace vars for funs that will be called by abstract"
+      NewNode = fn case _A, _E:
+        Line = 0
+        (tuple, Line, [(atom, Line, var), (var, 99, `_`), (atom, Line, Name)])
+      end
+      (NewNode, State)
+  end
+case State, Node when is_integer(element(2, Node)):
+  #_ "put a function in the second element of the tuple"
+  #_ "so abstract calls it to get the right node"
+  NewNode = setelement(2, Node, fn fun_match_any_line_ast:2) 
+  (NewNode, State)
+end
+
+fn abstract_query_ast case Ast:
+  State0 = {}
+  Walker = fn abstract_query_ast_lines:2
+  (AbsAstLines, _State) = erl_ast_walk.expr(Ast, Walker, State0)
+  erlplorer_util.abstract(AbsAstLines)
+end
+
+fn search_path case Path, ModName, BinMod:
+  match parse_file(Path):
+    case ok, Ast:
+      State0 = {filename: Path}
+      (module, QMod) = erlang.load_module(ModName, BinMod)
+      Walker = fn QMod.walk:2
+      erl_ast_walk.walk(Ast, Walker, State0)
+    case error, Reason:
+      io.format("Error parsing ~s: ~p", [Path, Reason])
+  end
 end
 
 fn parse_file case Path:
