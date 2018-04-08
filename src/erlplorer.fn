@@ -8,11 +8,14 @@ fn main @public
     print_and_exit(Result)
   case ["search", Query :: Paths]:
     match compile_ast_query(Query):
-      case ok, ModName, Mod, Warnings:
+      case ok, ModName, BinMod, Warnings:
         print_warnings(Warnings)
+        (module, QMod) = erlang.load_module(ModName, BinMod)
 
-        for Path in Paths:
-          search_path(Path, ModName, Mod)
+        for Pattern in Paths:
+          for Path in filelib.wildcard(Pattern):
+            search_path(Path, QMod)
+          end
         end
 
         erlang.halt(0)
@@ -91,18 +94,19 @@ fn query_ast_to_mod case Ast, ModName:
   (attribute, 2, export, [(walk, 2)]), 
 
   (function, 4, walk, 2, 
-           [(clause, 4, 
-             [(var, 4, `erlplorer_State`), 
-               (`match`, 4, (var, 4, `erlplorer_Node`), Ast)], 
-              [], 
-              [(call, 5, 
-                (remote, 5, (atom, 5, erlplorer), (atom, 5, query_match)), 
-                  [(var, 5, `erlplorer_State`), (var, 5, `erlplorer_Node`)]), 
-               (tuple, 6, [(var, 6, `erlplorer_Node`), (var, 6, `erlplorer_State`)])]), 
-            (clause, 7, 
-              [(var, 7, `erlplorer_State`), (var, 7, `erlplorer_Node`)], 
-              [], 
-              [(tuple, 8, [(var, 8, `erlplorer_Node`), (var, 8, `erlplorer_State`)])])]), 
+    [(clause, 4, 
+      [(var, 4, `erlplorer_State`), 
+        (`match`, 4, (var, 4, `erlplorer_Node`), Ast)], 
+      [], 
+      [(call, 5, 
+        (remote, 5, (atom, 5, erlplorer), (atom, 5, query_match)), 
+         [(var, 5, `erlplorer_State`), (var, 5, `erlplorer_Node`)]), 
+
+        (tuple, 6, [(var, 6, `erlplorer_Node`), (var, 6, `erlplorer_State`)])]), 
+     (clause, 7, 
+       [(var, 7, `erlplorer_State`), (var, 7, `erlplorer_Node`)], 
+       [], 
+       [(tuple, 8, [(var, 8, `erlplorer_Node`), (var, 8, `erlplorer_State`)])])]), 
  (eof, 9)] 
 end
 
@@ -144,11 +148,10 @@ fn abstract_query_ast case Ast:
   erlplorer_util.abstract(AbsAstLines)
 end
 
-fn search_path case Path, ModName, BinMod:
+fn search_path case Path, QMod:
   match parse_file(Path):
     case ok, Ast:
       State0 = {filename: Path}
-      (module, QMod) = erlang.load_module(ModName, BinMod)
       Walker = fn QMod.walk:2
       erl_ast_walk.walk(Ast, Walker, State0)
     case error, Reason:
