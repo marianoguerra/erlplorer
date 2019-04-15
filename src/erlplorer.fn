@@ -1,12 +1,12 @@
 
 fn main @public
-  case ["info" :: Paths]:
+  case "info" :: Paths:
     Result = lists.map(Paths) <<- case Path:
       handle_file(Path)
     end
 
     print_and_exit(Result)
-  case ["search", Query :: Paths]:
+  case "search" :: Query :: Paths:
     match compile_ast_query(Query):
       case ok, ModName, BinMod, Warnings:
         print_warnings(Warnings)
@@ -144,7 +144,7 @@ end
 fn abstract_query_ast case Ast:
   State0 = {}
   Walker = fn abstract_query_ast_lines:2
-  (AbsAstLines, _State) = erl_ast_walk.expr(Ast, Walker, State0)
+  (AbsAstLines, _State) = ast_walk.expr(Ast, Walker, State0)
   erlplorer_util.abstract(AbsAstLines)
 end
 
@@ -153,7 +153,7 @@ fn search_path case Path, QMod:
     case ok, Ast:
       State0 = {filename: Path}
       Walker = fn QMod.walk:2
-      erl_ast_walk.walk(Ast, Walker, State0)
+      ast_walk.walk(Ast, Walker, State0)
     case error, Reason:
       io.format("Error parsing ~s: ~p", [Path, Reason])
   end
