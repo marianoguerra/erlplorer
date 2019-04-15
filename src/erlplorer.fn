@@ -218,7 +218,7 @@ fn analyze_path @public case Path:
       end
 
       State0 = {modules: {}, external_funs: {}, functions: {}}
-      (_, Stats) = erl_ast_walk.walk(Ast, Walker, State0)
+      (_, Stats) = ast_walk.walk(Ast, Walker, State0)
 
       (ok, Stats)
     case error, Reason:
@@ -280,7 +280,7 @@ fn analyze_clauses case Ast:
 
   State0 = {vars: {}, remote_calls: {}, calls: {}, records: {},
             inner_clauses: 0}
-  (_, Stats) = erl_ast_walk.walk([Ast], Walker, State0)
+  (_, Stats) = ast_walk.walk([Ast], Walker, State0)
 
   Stats
 end
