@@ -229,7 +229,7 @@ end
 fn add_item_line case Key, Map, Name, Line:
   Items = maps.get(Key, Map, {})
   Lines = maps.get(Name, Items, [])
-  NewLines = [Line :: Lines]
+  NewLines = Line :: Lines
   NewItems = maps.put(Name, NewLines, Items)
   maps.put(Key, NewItems, Map)
 end
