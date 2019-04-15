@@ -59,8 +59,8 @@ fn compile_ast_query case Code:
       Id = erlang.unique_integer([positive])
       ModName = list_to_atom("erlplorer_query_mod_" ++ integer_to_list(Id))
       QModAst = query_ast_to_mod(AbsQueryAst, ModName)
-      io.format("ast: ~p~n", [QModAst])
-      io.format("code:~n~s~n", [pp_mod_ast(QModAst)])
+      #_ io.format("ast: ~p~n", [QModAst])
+      #_ io.format("code:~n~s~n", [pp_mod_ast(QModAst)])
       compile.forms(QModAst, [return, binary])
     case error, ErrorInfo, _ErrorLocation:
       (error, ErrorInfo, [])
@@ -162,7 +162,7 @@ end
 fn parse_file case Path:
   match lists.reverse(Path):
     case "lre." ++ _:
-      ParseResult = epp.parse_file(Path, [], [])
+      epp.parse_file(Path, [], [])
     case "nf." ++ _:
       efene.to_mod(Path)
     else:
@@ -189,7 +189,7 @@ fn analyze_path @public case Path:
   match parse_file(Path):
     case ok, Ast:
       Walker = fn
-        case State, Node=(call, Line, (remote, _La, Mod, Fun), Args):
+        case State, Node=(call, _Line, (remote, _La, Mod, Fun), Args):
           MFA = fun_to_name(Mod, Fun, Args)
           State1 = inc(State, external_funs, MFA)
           match Mod:
