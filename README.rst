@@ -137,6 +137,11 @@ You need Erlang and rebar3 installed and in your `$PATH`
 	# ~/bin or any other folder in your $PATH
 	cp _build/default/bin/erlplorer ~/bin
 
+Emacs integration
+.................
+
+Check `facundoolano emacs integration <https://github.com/facundoolano/emacs.d/blob/590a01d1bd75af4a5e4e08971900c6dece20b5e4/modules/facundo-erlang.el#L66-L94>`_
+
 How is it implemented?
 ......................
 
