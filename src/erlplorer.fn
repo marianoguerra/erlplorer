@@ -27,6 +27,12 @@ fn main @public
         io.format("Error: ~p~n", [Error])
         erlang.halt(0)
     end
+  case "count-atoms" :: Paths:
+    StateOut = lists.foldl({}, Paths) <<- case Path, StateIn:
+      count_atoms(Path, StateIn)
+    end
+
+    format_atom_count(StateOut)
   case Args:
     io.format("Unknown Arguments: ~p~n", [Args])
     usage()
@@ -151,11 +157,38 @@ end
 fn search_path case Path, QMod:
   match parse_file(Path):
     case ok, Ast:
-      State0 = {filename: Path}
+      State0 = {}
       Walker = fn QMod.walk:2
       ast_walk.walk(Ast, Walker, State0)
     case error, Reason:
       io.format("Error parsing ~s: ~p", [Path, Reason])
+  end
+end
+
+fn walk_count_atoms
+case State, Ast = (atom, _Anno, Atom):
+  (Ast, maps.update_with(Atom, fn case V: V + 1 end, 1, State))
+case State, Ast:
+  (Ast, State)
+end
+
+fn count_atoms case Path, StateIn:
+  match parse_file(Path):
+    case ok, Ast:
+      Walker = fn walk_count_atoms:2
+      (_, State1) = ast_walk.walk(Ast, Walker, StateIn)
+      State1
+    case error, Reason:
+      io.format("Error parsing ~s: ~p", [Path, Reason])
+      StateIn
+  end
+end
+
+fn format_atom_count case State:
+  AtomList0 = maps.to_list(State)
+  AtomListSorted = lists.sort(fn case (_, A), (_, B): A <= B end, AtomList0)
+  for (Atom, Count) in AtomListSorted:
+    io.format("~p: ~p~n", [Atom, Count])
   end
 end
 
